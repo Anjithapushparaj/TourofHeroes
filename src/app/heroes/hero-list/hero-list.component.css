@@ -12,3 +12,6 @@ button:hover{
     box-shadow: 2px 2px rgb(187, 185, 183);
     background-color: rgb(241, 189, 124);
 }
+.selected{
+    background-color: aqua;
+}

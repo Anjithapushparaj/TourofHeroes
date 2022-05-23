@@ -1,5 +1,5 @@
 <div *ngFor="let hero of heroesList">
-    <button type="button">
+    <button type="button" [class.selected]="(selectedId === hero.id) ? true:false">
         <a [routerLink]="['/hero', hero.id]">
             {{hero.id}} . {{hero.name}}
         </a>

@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 })
 export class HeroDetailComponent implements OnInit {
   hero?:Hero;
-  departmentId:number = 0;
+  public departmentId:any;
 
   constructor(
     private heroServ: HeroService,
@@ -23,14 +23,26 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getHero(){
-    console.log(this.route.snapshot.paramMap);
-    console.log(this.route.snapshot.paramMap.has('id'));
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.departmentId = id;
-    console.log(id);
-    this.heroServ.getHero(id)
+           // drowback of snapshot
+          // console.log(this.route.snapshot.paramMap);
+          // console.log(this.route.snapshot.paramMap.has('id'));
+          // const id = Number(this.route.snapshot.paramMap.get('id'));
+          // this.departmentId = id;
+          // console.log(id);
+          // this.heroServ.getHero(id)
+          // .subscribe(hero => this.hero = hero);
+          // console.log(this.hero);
+
+
+    this.route.paramMap.subscribe((params:ParamMap) =>{
+      let id = Number(params.get('id'));
+      this.departmentId = id;
+        console.log(this.departmentId);
+        this.heroServ.getHero(this.departmentId)
     .subscribe(hero => this.hero = hero);
     console.log(this.hero);
+    });
+    
   }
 
   gotBack(){
@@ -42,10 +54,16 @@ export class HeroDetailComponent implements OnInit {
   }
 
   gotoPrevious(){
-
+    let previousId = this.departmentId - 1;
+    this.router.navigate(['/hero',previousId]);
   }
   gotoNext(){
-    
+    let nextId = this.departmentId + 1;
+    this.router.navigate(['/hero',nextId]);
+  }
+
+  optionalBack(){
+    this.router.navigate(['/heroes',{ id: this.departmentId}]);
   }
   
 }

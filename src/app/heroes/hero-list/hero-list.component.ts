@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroService } from '../hero.service';
 import { Hero } from '../hero';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-hero-list',
@@ -10,10 +11,16 @@ import { Hero } from '../hero';
 export class HeroListComponent implements OnInit {
 
   heroesList?:Hero[];
+  selectedId:number =0;
 
-  constructor(private heroService : HeroService) { }
+  constructor(private heroService : HeroService,
+    private route:ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe((params:ParamMap) =>{
+      this.selectedId = Number(params.get('id'));
+    })
     this.getHeroes();
   }
 
