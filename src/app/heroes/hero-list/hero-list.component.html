@@ -1,0 +1,7 @@
+<div *ngFor="let hero of heroesList">
+    <button type="button">
+        <a [routerLink]="['/hero', hero.id]">
+            {{hero.id}} . {{hero.name}}
+        </a>
+       </button>
+</div>
